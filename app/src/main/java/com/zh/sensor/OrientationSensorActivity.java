@@ -11,6 +11,8 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.Toast;
 
 import com.zh.sensor.databinding.ActivityOrientationSensorBinding;
@@ -22,9 +24,9 @@ public class OrientationSensorActivity extends AppCompatActivity implements Sens
     private Sensor orientationSensor;
 
     //加速度传感器数据
-    private final float[] accelerometerReading = new float[3];
+    private float[] accelerometerReading = new float[3];
     //地磁传感器数据
-    private final float[] magnetometerReading = new float[3];
+    private float[] magnetometerReading = new float[3];
     //旋转矩阵，用来保存磁场和加速度的数据
     private final float[] rotationMatrix = new float[9];
     //方向数据
@@ -83,11 +85,13 @@ public class OrientationSensorActivity extends AppCompatActivity implements Sens
             binding.tvValue.setText("旧API：\n"+sb.toString());
 
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            System.arraycopy(event.values, 0, accelerometerReading,
-                    0, accelerometerReading.length);
+//            System.arraycopy(event.values, 0, accelerometerReading,
+//                    0, accelerometerReading.length);
+             accelerometerReading=event.values.clone();
         } else if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
-            System.arraycopy(event.values, 0, magnetometerReading,
-                    0, magnetometerReading.length);
+//            System.arraycopy(event.values, 0, magnetometerReading,
+//                    0, magnetometerReading.length);
+            magnetometerReading=event.values.clone();
         }
         updateOrientationAngles();
     }
@@ -97,6 +101,7 @@ public class OrientationSensorActivity extends AppCompatActivity implements Sens
 
     }
 
+    private float fromDegrees;
     public void updateOrientationAngles() {
         // 更新旋转矩阵.
         // 参数1：
@@ -115,7 +120,36 @@ public class OrientationSensorActivity extends AppCompatActivity implements Sens
             sb.append("z轴:"+orientationAngles[0]+"\n");
             sb.append("x轴:"+orientationAngles[1]+"\n");
             sb.append("y轴:"+orientationAngles[2]+"\n");
+
+            float degrees = (float) Math.toDegrees(orientationAngles[0]);
+            if (degrees >= -5 &&degrees < 5) {
+                sb.append("正北"+degrees);
+            } else if (degrees >= 5 && degrees < 85) {
+                sb.append("东北"+degrees);
+            } else if (degrees >= 85 && degrees <= 95) {
+                sb.append("正东"+degrees);
+            } else if (degrees >= 95 && degrees < 175) {
+                sb.append("东南"+degrees);
+            } else if ((degrees >= 175 && degrees <= 180)
+                    || (degrees) >= -180 && degrees < -175) {
+                sb.append("正南"+degrees);
+            } else if (degrees>= -175 && degrees < -95) {
+                sb.append("西南"+degrees);
+            } else if (degrees >= -95 && degrees < -85) {
+                sb.append("正西"+degrees);
+            } else if (degrees >= -85 && degrees < -5) {
+                sb.append("西北"+degrees);
+            }
             binding.tvValueNew.setText("\n新API:\n"+sb.toString());
+
+            //顺时针转动为正，故手机顺时针转动时，图片得逆时针转动
+            //让图片相对自身中心点转动，开始角度默认为0；此后开始角度等于上一次结束角度
+            RotateAnimation ra = new RotateAnimation(fromDegrees, -degrees, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+            //动画时间200毫秒
+            ra.setDuration(200);
+            ra.setFillAfter(true);
+            binding.ivCompass.startAnimation(ra);
+            fromDegrees = -degrees;
         }
     }
 }

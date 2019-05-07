@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
                 //方向传感器
                 if (sensorList.get(position).getType()==3){
                     OrientationSensorActivity.launch(MainActivity.this);
+                }else if (sensorList.get(position).getType()==9){
+                    GravitySensorActivity.launch(MainActivity.this);
                 }
             }
         });
