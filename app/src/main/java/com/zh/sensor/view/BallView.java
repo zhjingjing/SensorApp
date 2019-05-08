@@ -14,8 +14,6 @@ import android.hardware.SensorManager;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
-
 import com.zh.sensor.R;
 
 import static android.content.Context.SENSOR_SERVICE;
@@ -24,7 +22,7 @@ import static android.content.Context.SENSOR_SERVICE;
  * create by zj on 2019/5/7
  * 重力感应球
  */
-public class GravityBallView extends SurfaceView implements SurfaceHolder.Callback, SensorEventListener,Runnable {
+public class BallView extends SurfaceView implements SurfaceHolder.Callback, SensorEventListener,Runnable {
 
 
     /** 游戏画笔 **/
@@ -66,11 +64,11 @@ public class GravityBallView extends SurfaceView implements SurfaceHolder.Callba
     private SensorManager mSensorMgr = null;
     Sensor mSensor = null;
 
-    public GravityBallView(Context context) {
+    public BallView(Context context) {
         super(context);
     }
 
-    public GravityBallView(Context context, AttributeSet attrs) {
+    public BallView(Context context, AttributeSet attrs) {
         super(context, attrs);
         /** 设置当前View拥有控制焦点 **/
         this.setFocusable(true);
@@ -95,17 +93,17 @@ public class GravityBallView extends SurfaceView implements SurfaceHolder.Callba
 
         /**得到SensorManager对象**/
         mSensorMgr = (SensorManager) context.getSystemService(SENSOR_SERVICE);
-        mSensor = mSensorMgr.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mSensor = mSensorMgr.getDefaultSensor(Sensor.TYPE_GRAVITY);
         // 注册listener，第三个参数是检测的精确度
         //SENSOR_DELAY_FASTEST 最灵敏 因为太快了没必要使用
         //SENSOR_DELAY_GAME    游戏开发中使用
         //SENSOR_DELAY_NORMAL  正常速度
-        //SENSOR_DELAY_UI                最慢的速度
+        //SENSOR_DELAY_UI    最慢的速度
         mSensorMgr.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_GAME);
 
     }
 
-    public GravityBallView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public BallView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -201,7 +199,6 @@ public class GravityBallView extends SurfaceView implements SurfaceHolder.Callba
         RectF rectF = new RectF(0, 0, mScreenWidth, mScreenHeight);
         mCanvas.drawBitmap(mbitmapBg, null, rectF, null);
         /**绘制小球**/
-
         mCanvas.drawBitmap(mbitmapBall, mPosX, mPosY, mPaint);
         /**X轴 Y轴 Z轴的重力值**/
         mCanvas.drawText("X轴重力值 ：" + mGX, 0, 20, mPaint);

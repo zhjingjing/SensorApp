@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <data>
+        <variable
+            name="presenter"
+            type="com.zh.sensor.AccelerometerSensorActivity"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#222"
+        >
+
+        <ImageView
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/icon_wx"
+            android:id="@+id/iv_center"
+            />
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#222"
+                android:id="@+id/ll_top"
+                >
+                <ImageView
+                    android:id="@+id/iv_top"
+                    android:layout_width="match_parent"
+                    android:layout_height="140dp"
+                    android:src="@mipmap/shake_top"
+                    />
+                <TextView
+                    android:id="@+id/tv_line_top"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:visibility="gone"
+                    android:background="#eaeaea"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#222"
+                android:id="@+id/ll_bottom"
+                >
+                <TextView
+                    android:id="@+id/tv_line_bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:visibility="gone"
+                    android:background="#eaeaea"
+                    />
+                <ImageView
+                    android:id="@+id/iv_bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="140dp"
+                    android:src="@mipmap/shake_bottom"
+                    />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>

@@ -44,9 +44,12 @@ public class MainActivity extends AppCompatActivity {
                     OrientationSensorActivity.launch(MainActivity.this);
                 }else if (sensorList.get(position).getType()==9){
                     GravitySensorActivity.launch(MainActivity.this);
+                }else if (sensorList.get(position).getType()==1){
+                    AccelerometerSensorActivity.launch(MainActivity.this);
                 }
             }
         });
+
 
 
 

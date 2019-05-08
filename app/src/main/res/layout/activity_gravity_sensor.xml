@@ -9,9 +9,21 @@
             type="com.zh.sensor.GravitySensorActivity"/>
     </data>
 
-    <com.zh.sensor.view.GravityBallView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/gravity_ball"
-        />
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text=""
+            android:textColor="#333"
+            android:textSize="15sp"
+            android:id="@+id/tv_value"
+            />
+
+
+    </LinearLayout>
 </layout>
