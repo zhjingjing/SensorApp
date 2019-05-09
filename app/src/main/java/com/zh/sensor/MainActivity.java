@@ -39,25 +39,57 @@ public class MainActivity extends AppCompatActivity {
         binding.listSensor.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //以下是位置传感器
+
+
                 //方向传感器
-                if (sensorList.get(position).getType()==3){
+                if (sensorList.get(position).getType()==Sensor.TYPE_ORIENTATION){
                     OrientationSensorActivity.launch(MainActivity.this);
-                }else if (sensorList.get(position).getType()==9){
+                }
+
+                //以下是motion 传感器
+                //重力
+                else if (sensorList.get(position).getType()==Sensor.TYPE_GRAVITY){
                     GravitySensorActivity.launch(MainActivity.this);
-                }else if (sensorList.get(position).getType()==1){
+                }
+                //加速度计
+                else if (sensorList.get(position).getType()==Sensor.TYPE_ACCELEROMETER){
                     AccelerometerSensorActivity.launch(MainActivity.this);
-                }else if (sensorList.get(position).getType()==11){
+                }
+                //旋转矢量
+                else if (sensorList.get(position).getType()==Sensor.TYPE_ROTATION_VECTOR){
                      RotationVectorDemo.launch(MainActivity.this);
-                }else if (sensorList.get(position).getType()==4){
+                }
+                //陀螺仪
+                else if (sensorList.get(position).getType()==Sensor.TYPE_GYROSCOPE){
                     GyroscopeSensorActivity.launch(MainActivity.this);
                 }
 
+
+                //以下是环境传感器
+
+                //光
+                else if (sensorList.get(position).getType()==Sensor.TYPE_LIGHT){
+                    EnvironmentActivity.launch(MainActivity.this);
+                }
+                //气压
+                else if (sensorList.get(position).getType()==Sensor.TYPE_PRESSURE){
+                    EnvironmentActivity.launch(MainActivity.this);
+                }
+                //湿度
+                else if (sensorList.get(position).getType()==Sensor.TYPE_RELATIVE_HUMIDITY){
+                    EnvironmentActivity.launch(MainActivity.this);
+                }
+                //设备温度 api 14弃用
+                else if (sensorList.get(position).getType()==Sensor.TYPE_TEMPERATURE){
+                    EnvironmentActivity.launch(MainActivity.this);
+                }
+                //环境温度
+                else if (sensorList.get(position).getType()==Sensor.TYPE_AMBIENT_TEMPERATURE){
+                    EnvironmentActivity.launch(MainActivity.this);
+                }
             }
         });
-
-
-
-
     }
 
 }
