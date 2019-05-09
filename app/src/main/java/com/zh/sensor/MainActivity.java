@@ -46,7 +46,12 @@ public class MainActivity extends AppCompatActivity {
                     GravitySensorActivity.launch(MainActivity.this);
                 }else if (sensorList.get(position).getType()==1){
                     AccelerometerSensorActivity.launch(MainActivity.this);
+                }else if (sensorList.get(position).getType()==11){
+                     RotationVectorDemo.launch(MainActivity.this);
+                }else if (sensorList.get(position).getType()==4){
+                    GyroscopeSensorActivity.launch(MainActivity.this);
                 }
+
             }
         });
 

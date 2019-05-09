@@ -31,9 +31,10 @@ public class AccelerometerSensorActivity extends AppCompatActivity implements Se
     private SensorManager sensorManager;
     private Sensor mSensor;
 
+    //开始摇一摇
     private static final int START_SHAKE = 0x1;
-    private static final int AGAIN_SHAKE = 0x2;
-    private static final int END_SHAKE = 0x3;
+    //结束
+    private static final int END_SHAKE = 0x2;
     private MyHandler mHandler;
 
     public static void launch(Context context){
@@ -65,6 +66,7 @@ public class AccelerometerSensorActivity extends AppCompatActivity implements Se
         }
     }
 
+
     private boolean isShake;
     @Override
     public void onSensorChanged(SensorEvent event) {
@@ -82,10 +84,10 @@ public class AccelerometerSensorActivity extends AppCompatActivity implements Se
                         try {
                             //展示动画效果
                             mHandler.obtainMessage(START_SHAKE).sendToTarget();
+                            //上下展开停留时间。
                             Thread.sleep(1500);
+                            //结束摇一摇，合并上下两部分，隐藏line
                             mHandler.obtainMessage(END_SHAKE).sendToTarget();
-
-
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -117,12 +119,12 @@ public class AccelerometerSensorActivity extends AppCompatActivity implements Se
             super.handleMessage(msg);
             switch (msg.what) {
                 case START_SHAKE:
-                    mActivity.startAnimation(false);//参数含义: (不是回来) 也就是说两张图片分散开的动画
+                    mActivity.startAnimation(false);//两张图片分散开的动画
                     break;
                 case END_SHAKE:
-                    //整体效果结束, 将震动设置为false
+                    //整体效果结束,
                     mActivity.isShake = false;
-                    // 展示上下两种图片回来的效果
+                    // 展示上下两种图片合并的效果
                     mActivity.startAnimation(true);
                     break;
             }
@@ -131,7 +133,6 @@ public class AccelerometerSensorActivity extends AppCompatActivity implements Se
 
     /**
      * 开启 摇一摇动画
-     *
      * @param isBack 是否是返回初识状态
      */
     private void startAnimation(boolean isBack) {
@@ -171,7 +172,7 @@ public class AccelerometerSensorActivity extends AppCompatActivity implements Se
         bottomAnim.setDuration(200);
         bottomAnim.setFillAfter(true);
 
-        //大家一定不要忘记, 当要回来时, 我们中间的两根线需要GONE掉
+
         if (isBack) {
             bottomAnim.setAnimationListener(new Animation.AnimationListener() {
                 @Override

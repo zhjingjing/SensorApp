@@ -9,9 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AccelerometerSensorActivity"></activity>
+        <activity android:name=".GyroscopeSensorActivity"></activity>
+        <activity android:name=".AccelerometerSensorActivity" />
         <activity android:name=".GravitySensorActivity" />
         <activity android:name=".OrientationSensorActivity" />
+        <activity android:name=".RotationVectorDemo" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
