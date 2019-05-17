@@ -45,6 +45,21 @@ public class MainActivity extends AppCompatActivity {
                 //方向传感器
                 if (sensorList.get(position).getType()==Sensor.TYPE_ORIENTATION){
                     OrientationSensorActivity.launch(MainActivity.this);
+                }else if (sensorList.get(position).getType()==Sensor.TYPE_GAME_ROTATION_VECTOR){
+                    //游戏旋转矢量传感器
+                    PositionSensorsActivity.launch(MainActivity.this);
+                }else if (sensorList.get(position).getType()==Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR){
+                    //地磁场旋转矢量传感器
+                    PositionSensorsActivity.launch(MainActivity.this);
+                }else if (sensorList.get(position).getType()==Sensor.TYPE_MAGNETIC_FIELD){
+                    //磁场
+                    PositionSensorsActivity.launch(MainActivity.this);
+                }else if (sensorList.get(position).getType()==Sensor.TYPE_MAGNETIC_FIELD_UNCALIBRATED){
+                    //未校准的磁场
+                    PositionSensorsActivity.launch(MainActivity.this);
+                }else if (sensorList.get(position).getType()==Sensor.TYPE_PROXIMITY){
+                    //接近传感器返回距离
+                    PositionSensorsActivity.launch(MainActivity.this);
                 }
 
                 //以下是motion 传感器
@@ -87,6 +102,15 @@ public class MainActivity extends AppCompatActivity {
                 //环境温度
                 else if (sensorList.get(position).getType()==Sensor.TYPE_AMBIENT_TEMPERATURE){
                     EnvironmentActivity.launch(MainActivity.this);
+                }
+
+                //其他传感器
+                //心率传感器必须设置权限 body_sensors 否则sensorList不会返回。
+                // 描述心率监测器的常数。
+                //当精度为 SENSOR_STATUS_UNRELIABLE或时SENSOR_STATUS_NO_CONTACT，应丢弃心率值。
+                // 报告的值是以每分钟节拍为单位的心率
+                else if (sensorList.get(position).getType()==Sensor.TYPE_HEART_RATE){
+                    HeartRateActivity.launch(MainActivity.this);
                 }
             }
         });
